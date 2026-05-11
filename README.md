@@ -38,7 +38,7 @@ scanning, monthly insights, and budgets.
 
 ### Prerequisites
 
-- Node **24++** (recommended 26.1.0)
+- Node **24+** (recommended 26.1.0)
 - A MongoDB Atlas cluster (free M0 works)
 - A Google OAuth 2.0 client ID + secret (Google Cloud Console)
 - A Groq API key (free; <https://console.groq.com>)
