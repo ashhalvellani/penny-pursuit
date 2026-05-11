@@ -47,7 +47,7 @@ scanning, monthly insights, and budgets.
 ### Install & run
 
 ```bash
-git clone https://github.com/sa10786/penny-pursuit.git
+git clone https://github.com/ashhalvellani/penny-pursuit.git
 cd penny-pursuit
 
 # use node v26.1.0:
