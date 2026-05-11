@@ -69,7 +69,7 @@ export default function DashboardPage() {
         </div>
       )}
 
-      <div className="grid grid-cols-12 auto-rows-fr gap-4">
+      <div className="grid grid-cols-12 gap-4">
         <MonthHeroCard summary={data} monthLabel={monthLabel} isLoading={isLoading} />
         <CategoryDonut summary={data} isLoading={isLoading} />
         <TopMerchantsCard summary={data} isLoading={isLoading} />
