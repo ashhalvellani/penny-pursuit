@@ -15,4 +15,9 @@ async function remove(req, res) {
   res.status(204).end();
 }
 
-module.exports = { list, upsert, remove };
+async function copyFrom(req, res) {
+  const result = await service.copyBudgetsFromMonth(req.user._id, req.body);
+  res.json(result);
+}
+
+module.exports = { list, upsert, remove, copyFrom };

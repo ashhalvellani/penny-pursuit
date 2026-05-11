@@ -1,5 +1,5 @@
 import { useMemo, useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Trash2 } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Trash2, Copy } from 'lucide-react';
 import { toast } from 'sonner';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
@@ -7,7 +7,12 @@ import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card'
 import { CategoryBadge } from '../components/expenses/CategoryBadge';
 import { CATEGORIES } from '../lib/expense.schema';
 import { formatCurrency } from '../lib/format';
-import { useBudgets, useUpsertBudget, useDeleteBudget } from '../hooks/useBudgets';
+import {
+  useBudgets,
+  useUpsertBudget,
+  useDeleteBudget,
+  useCopyBudgetsFromMonth,
+} from '../hooks/useBudgets';
 import { useDashboard, currentMonthKey } from '../hooks/useDashboard';
 
 const FMT = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' });
@@ -26,11 +31,16 @@ function labelFor(monthKey) {
 export default function BudgetsPage() {
   const today = useMemo(() => currentMonthKey(), []);
   const [month, setMonth] = useState(today);
+  const prevMonth = useMemo(() => shiftMonth(month, -1), [month]);
 
   const { data: budgetsData } = useBudgets(month);
+  const { data: prevBudgetsData } = useBudgets(prevMonth);
   const { data: summary } = useDashboard(month);
   const upsert = useUpsertBudget();
   const remove = useDeleteBudget();
+  const copyFromPrev = useCopyBudgetsFromMonth();
+
+  const prevHasAny = (prevBudgetsData?.items?.length ?? 0) > 0;
 
   const byCategory = useMemo(() => {
     const map = new Map();
@@ -76,8 +86,33 @@ export default function BudgetsPage() {
       </div>
 
       <Card>
-        <CardHeader>
+        <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle>Categories</CardTitle>
+          <Button
+            size="sm"
+            variant="secondary"
+            disabled={!prevHasAny || copyFromPrev.isPending}
+            title={!prevHasAny ? `No budgets set in ${labelFor(prevMonth)}` : undefined}
+            onClick={() =>
+              copyFromPrev
+                .mutateAsync({ fromMonth: prevMonth, toMonth: month })
+                .then((res) => {
+                  if (res.imported > 0) {
+                    toast.success(
+                      `Imported ${res.imported} budget${res.imported === 1 ? '' : 's'} from ${labelFor(prevMonth)}`
+                    );
+                  } else {
+                    toast(`All categories from ${labelFor(prevMonth)} already have budgets`);
+                  }
+                })
+                .catch((err) =>
+                  toast.error(err?.response?.data?.error || 'Could not import budgets')
+                )
+            }
+          >
+            <Copy size={14} className="mr-1.5" />
+            Import from {labelFor(prevMonth)}
+          </Button>
         </CardHeader>
         <CardContent className="px-0">
           <div className="divide-y divide-border">

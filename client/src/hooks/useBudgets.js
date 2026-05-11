@@ -40,3 +40,20 @@ export function useDeleteBudget() {
     },
   });
 }
+
+export function useCopyBudgetsFromMonth() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async ({ fromMonth, toMonth }) => {
+      const { data } = await api.post('/api/budgets/copy-from', {
+        fromMonth,
+        toMonth,
+      });
+      return data;
+    },
+    onSuccess: (_data, variables) => {
+      qc.invalidateQueries({ queryKey: [KEY, variables.toMonth] });
+      qc.invalidateQueries({ queryKey: ['insights', variables.toMonth] });
+    },
+  });
+}
