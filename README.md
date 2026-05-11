@@ -86,12 +86,8 @@ penny-pursuit/
 
 ## Demo
 
-> Screenshots coming soon.
-
-<!--
-Drop screenshots here, e.g.:
-
-![Dashboard](docs/screenshots/dashboard.png)
-![Receipt scan](docs/screenshots/receipt.png)
-![Dark mode](docs/screenshots/dark.png)
--->
+![Login](demo/login.png)
+![Dashboard](demo/dashboard.png)
+![Expenses](demo/expenses.png)
+![Budgets](demo/budgets.png)
+![Receipt scan](demo/receipt.png)
