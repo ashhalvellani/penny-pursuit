@@ -10,8 +10,8 @@ export function ExpenseFilters({ value, onChange }) {
     value.q || value.category || value.from || value.to;
 
   return (
-    <div className="mb-4 grid grid-cols-1 gap-2 md:grid-cols-[1fr_auto_auto_auto_auto]">
-      <div className="relative">
+    <div className="mb-4 grid grid-cols-2 gap-2 md:grid-cols-[1fr_auto_auto_auto_auto]">
+      <div className="relative col-span-2 md:col-span-1">
         <Search
           size={14}
           className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-muted)]"
@@ -26,7 +26,7 @@ export function ExpenseFilters({ value, onChange }) {
       </div>
 
       <Select
-        className="md:w-44"
+        className="col-span-2 md:col-span-1 md:w-44"
         value={value.category || ''}
         onChange={(e) => set({ category: e.target.value })}
       >
@@ -58,6 +58,7 @@ export function ExpenseFilters({ value, onChange }) {
           variant="ghost"
           size="icon"
           aria-label="Clear filters"
+          className="col-span-2 w-full md:col-span-1 md:w-9"
           onClick={() => onChange({ page: 1 })}
         >
           <X size={16} />

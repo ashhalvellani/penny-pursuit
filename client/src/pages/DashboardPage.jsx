@@ -34,7 +34,7 @@ export default function DashboardPage() {
 
   return (
     <div>
-      <div className="mb-6 flex items-end justify-between">
+      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">
             Hi {user?.name?.split(' ')[0] || 'there'}
@@ -50,7 +50,9 @@ export default function DashboardPage() {
           >
             <ChevronLeft size={16} />
           </Button>
-          <span className="px-3 text-sm font-medium">{monthLabel}</span>
+          <span className="flex-1 whitespace-nowrap px-3 text-center text-sm font-medium sm:flex-none sm:text-left">
+            {monthLabel}
+          </span>
           <Button
             variant="ghost"
             size="icon"

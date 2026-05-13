@@ -56,7 +56,7 @@ export default function BudgetsPage() {
 
   return (
     <div>
-      <div className="mb-6 flex items-end justify-between">
+      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">Budgets</h1>
           <p className="text-sm text-muted">
@@ -72,7 +72,9 @@ export default function BudgetsPage() {
           >
             <ChevronLeft size={16} />
           </Button>
-          <span className="px-3 text-sm font-medium">{labelFor(month)}</span>
+          <span className="flex-1 whitespace-nowrap px-3 text-center text-sm font-medium sm:flex-none sm:text-left">
+            {labelFor(month)}
+          </span>
           <Button
             variant="ghost"
             size="icon"
@@ -86,11 +88,12 @@ export default function BudgetsPage() {
       </div>
 
       <Card>
-        <CardHeader className="flex flex-row items-center justify-between">
+        <CardHeader className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <CardTitle>Categories</CardTitle>
           <Button
             size="sm"
             variant="secondary"
+            className="self-start sm:self-auto"
             disabled={!prevHasAny || copyFromPrev.isPending}
             title={!prevHasAny ? `No budgets set in ${labelFor(prevMonth)}` : undefined}
             onClick={() =>
@@ -160,12 +163,12 @@ function BudgetRow({ category, month, budget, spent, onSave, onDelete }) {
     !budget ? 'muted' : pct >= 1 ? 'danger' : pct >= 0.85 ? 'warning' : 'accent';
 
   return (
-    <div className="flex items-center gap-4 px-6 py-4">
-      <div className="w-44 shrink-0">
+    <div className="px-4 py-4 sm:flex sm:items-center sm:gap-4 sm:px-6">
+      <div className="mb-2 sm:mb-0 sm:w-44 sm:shrink-0">
         <CategoryBadge category={category} />
       </div>
-      <div className="min-w-0 flex-1">
-        <div className="flex items-center gap-2 text-xs text-muted">
+      <div className="min-w-0 sm:flex-1">
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-xs text-muted">
           <span className="tabular">{formatCurrency(spent)} spent</span>
           {budget && (
             <>
@@ -191,7 +194,7 @@ function BudgetRow({ category, month, budget, spent, onSave, onDelete }) {
           />
         </div>
       </div>
-      <div className="flex shrink-0 items-center gap-2">
+      <div className="mt-3 flex items-center justify-end gap-2 sm:mt-0 sm:shrink-0">
         <Input
           type="number"
           inputMode="decimal"

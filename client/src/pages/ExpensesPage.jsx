@@ -118,7 +118,7 @@ export default function ExpensesPage() {
 
   return (
     <div>
-      <div className="mb-6 flex items-center justify-between">
+      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">Expenses</h1>
           <p className="text-sm text-muted">All transactions, newest first.</p>
@@ -126,13 +126,14 @@ export default function ExpensesPage() {
         <div className="flex items-center gap-2">
           <Button
             variant="secondary"
+            className="flex-1 sm:flex-none"
             onClick={handleExport}
             disabled={exporting || (data?.total ?? 0) === 0}
           >
             <Download size={16} />
             {exporting ? 'Exporting…' : 'Export CSV'}
           </Button>
-          <Button onClick={openCreate}>
+          <Button className="flex-1 sm:flex-none" onClick={openCreate}>
             <Plus size={16} />
             Add expense
           </Button>
