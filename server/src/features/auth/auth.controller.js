@@ -16,7 +16,7 @@ function me(req, res) {
 }
 
 function logout(req, res) {
-  res.clearCookie(COOKIE_NAME, { path: '/' });
+  res.clearCookie(COOKIE_NAME, cookieOptions());
   res.json({ ok: true });
 }
 
@@ -28,7 +28,7 @@ async function removeMe(req, res) {
     User.deleteOne({ _id: userId }),
   ]);
   invalidateAllInsights(userId);
-  res.clearCookie(COOKIE_NAME, { path: '/' });
+  res.clearCookie(COOKIE_NAME, cookieOptions());
   res.json({ ok: true });
 }
 
