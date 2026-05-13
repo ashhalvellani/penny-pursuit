@@ -10,6 +10,7 @@ const schema = z.object({
   CLIENT_URL: z.string().url('CLIENT_URL must be a valid URL'),
   GROQ_API_KEY: z.string().min(1, 'GROQ_API_KEY is required'),
   TABSCANNER_API_KEY: z.string().min(1, 'TABSCANNER_API_KEY is required'),
+  ALLOWED_EMAILS: z.string().optional().default(''),
 });
 
 const parsed = schema.safeParse(process.env);

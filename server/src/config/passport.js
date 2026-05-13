@@ -4,6 +4,12 @@ const { Strategy: GoogleStrategy } = require('passport-google-oauth20');
 const env = require('./env');
 const User = require('../features/users/user.model');
 
+const allowedEmails = new Set(
+  env.ALLOWED_EMAILS.split(',')
+    .map((e) => e.trim().toLowerCase())
+    .filter(Boolean)
+);
+
 passport.use(
   new GoogleStrategy(
     {
@@ -16,6 +22,10 @@ passport.use(
       try {
         const email = profile.emails?.[0]?.value?.toLowerCase();
         if (!email) return done(new Error('Google profile missing email'));
+
+        if (allowedEmails.size > 0 && !allowedEmails.has(email)) {
+          return done(null, false, { message: 'not_authorized' });
+        }
 
         const user = await User.findOneAndUpdate(
           { googleId: profile.id },

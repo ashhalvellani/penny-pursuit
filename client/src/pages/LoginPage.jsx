@@ -89,11 +89,15 @@ export default function LoginPage() {
                 </p>
               </div>
 
-              {error && (
+              {error === 'not_authorized' ? (
+                <div className="mb-4 rounded-xl border border-danger/40 bg-danger/10 px-3 py-2 text-xs text-danger">
+                  This Google account isn't authorized to use Penny Pursuit. Ask the owner to whitelist your email.
+                </div>
+              ) : error ? (
                 <div className="mb-4 rounded-xl border border-danger/40 bg-danger/10 px-3 py-2 text-xs text-danger">
                   Sign-in failed. Please try again.
                 </div>
-              )}
+              ) : null}
 
               <Button onClick={startGoogleLogin} className="w-full" size="lg">
                 <GoogleIcon />
