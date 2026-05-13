@@ -14,18 +14,20 @@ function cacheKey(userId, month) {
 function normalizeMonth(input) {
   if (typeof input === 'string' && /^\d{4}-(0[1-9]|1[0-2])$/.test(input)) return input;
   const d = new Date();
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+  return `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}`;
 }
 
 function parseRange(monthKey) {
   const [y, m] = monthKey.split('-').map(Number);
-  const start = new Date(y, m - 1, 1, 0, 0, 0, 0);
-  const end = new Date(y, m, 0, 23, 59, 59, 999);
-  const prevStart = new Date(y, m - 2, 1, 0, 0, 0, 0);
-  const prevEnd = new Date(y, m - 1, 0, 23, 59, 59, 999);
-  const monthLabel = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' }).format(
-    start
-  );
+  const start = new Date(Date.UTC(y, m - 1, 1, 0, 0, 0, 0));
+  const end = new Date(Date.UTC(y, m, 0, 23, 59, 59, 999));
+  const prevStart = new Date(Date.UTC(y, m - 2, 1, 0, 0, 0, 0));
+  const prevEnd = new Date(Date.UTC(y, m - 1, 0, 23, 59, 59, 999));
+  const monthLabel = new Intl.DateTimeFormat('en-US', {
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'UTC',
+  }).format(start);
   return { start, end, prevStart, prevEnd, monthLabel };
 }
 
@@ -84,10 +86,10 @@ async function gatherStats(userId, monthKey) {
   const stats = {
     monthLabel,
     monthKey,
-    daysInMonth: end.getDate(),
+    daysInMonth: end.getUTCDate(),
     isCurrentMonth:
       monthKey ===
-      `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}`,
+      `${new Date().getUTCFullYear()}-${String(new Date().getUTCMonth() + 1).padStart(2, '0')}`,
     today: new Date().toISOString().slice(0, 10),
     total: round2(total),
     transactions: count,
@@ -254,7 +256,7 @@ function invalidateAllInsights(userId) {
 
 function monthKeyOf(date) {
   const d = date instanceof Date ? date : new Date(date);
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+  return `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}`;
 }
 
 module.exports = { getInsights, invalidateInsights, invalidateAllInsights, monthKeyOf };

@@ -2,8 +2,8 @@ const Expense = require('../expenses/expense.model');
 
 function parseMonth(monthStr) {
   const now = new Date();
-  let year = now.getFullYear();
-  let month = now.getMonth();
+  let year = now.getUTCFullYear();
+  let month = now.getUTCMonth();
 
   if (typeof monthStr === 'string' && /^\d{4}-\d{2}$/.test(monthStr)) {
     const [y, m] = monthStr.split('-').map(Number);
@@ -13,10 +13,10 @@ function parseMonth(monthStr) {
     }
   }
 
-  const start = new Date(year, month, 1, 0, 0, 0, 0);
-  const end = new Date(year, month + 1, 0, 23, 59, 59, 999);
-  const prevStart = new Date(year, month - 1, 1, 0, 0, 0, 0);
-  const prevEnd = new Date(year, month, 0, 23, 59, 59, 999);
+  const start = new Date(Date.UTC(year, month, 1, 0, 0, 0, 0));
+  const end = new Date(Date.UTC(year, month + 1, 0, 23, 59, 59, 999));
+  const prevStart = new Date(Date.UTC(year, month - 1, 1, 0, 0, 0, 0));
+  const prevEnd = new Date(Date.UTC(year, month, 0, 23, 59, 59, 999));
 
   const monthKey = `${year}-${String(month + 1).padStart(2, '0')}`;
 
@@ -110,11 +110,11 @@ function fillDailySeries(rows, start, end) {
   const days = [];
   const cur = new Date(start);
   while (cur <= end) {
-    const key = `${cur.getFullYear()}-${String(cur.getMonth() + 1).padStart(2, '0')}-${String(
-      cur.getDate()
+    const key = `${cur.getUTCFullYear()}-${String(cur.getUTCMonth() + 1).padStart(2, '0')}-${String(
+      cur.getUTCDate()
     ).padStart(2, '0')}`;
     days.push({ date: key, total: map.get(key) || 0 });
-    cur.setDate(cur.getDate() + 1);
+    cur.setUTCDate(cur.getUTCDate() + 1);
   }
   return days;
 }
