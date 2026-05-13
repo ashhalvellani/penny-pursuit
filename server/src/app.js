@@ -1,4 +1,5 @@
 require('express-async-errors');
+const path = require('path');
 const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
@@ -22,7 +23,7 @@ function createApp() {
 
   app.set('trust proxy', 1);
 
-  app.use(helmet());
+  app.use(helmet({ contentSecurityPolicy: false }));
   app.use(
     cors({
       origin: env.CLIENT_URL,
@@ -40,6 +41,15 @@ function createApp() {
   app.use('/api/dashboard', dashboardRoutes);
   app.use('/api/ai', aiRoutes);
   app.use('/api/budgets', budgetRoutes);
+
+  if (env.NODE_ENV === 'production') {
+    const clientDist = path.join(__dirname, '..', '..', 'client', 'dist');
+    app.use(express.static(clientDist));
+    app.get('*', (req, res, next) => {
+      if (req.path.startsWith('/api/')) return next();
+      res.sendFile(path.join(clientDist, 'index.html'));
+    });
+  }
 
   app.use(notFoundHandler);
   app.use(errorHandler);
