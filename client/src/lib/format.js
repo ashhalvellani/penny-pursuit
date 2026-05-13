@@ -1,4 +1,4 @@
-import { format as fmt, parseISO } from 'date-fns';
+import { format as fmt } from 'date-fns';
 
 export function formatCurrency(amount, currency = 'USD') {
   if (amount == null || isNaN(amount)) return '—';
@@ -11,8 +11,10 @@ export function formatCurrency(amount, currency = 'USD') {
 
 export function formatDate(value, pattern = 'MMM d, yyyy') {
   if (!value) return '';
-  const d = typeof value === 'string' ? parseISO(value) : value;
-  return fmt(d, pattern);
+  const iso = typeof value === 'string' ? value : new Date(value).toISOString();
+  const [y, m, d] = iso.slice(0, 10).split('-').map(Number);
+  if (!y || !m || !d) return '';
+  return fmt(new Date(y, m - 1, d), pattern);
 }
 
 export function todayISO() {
