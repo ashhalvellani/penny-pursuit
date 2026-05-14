@@ -6,7 +6,7 @@ export const Input = forwardRef(function Input({ className, ...props }, ref) {
     <input
       ref={ref}
       className={cn(
-        'flex h-10 w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] px-3 py-2 text-sm text-[var(--color-fg)] placeholder:text-[var(--color-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] disabled:opacity-50',
+        'flex h-10 w-full rounded-xl border border-border bg-card px-3 py-2 text-sm text-fg placeholder:text-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent disabled:opacity-50',
         className
       )}
       {...props}
@@ -19,7 +19,7 @@ export const Select = forwardRef(function Select({ className, children, ...props
     <select
       ref={ref}
       className={cn(
-        'flex h-10 w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] px-3 py-2 text-sm text-[var(--color-fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] disabled:opacity-50',
+        'flex h-10 w-full rounded-xl border border-border bg-card px-3 py-2 text-sm text-fg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent disabled:opacity-50',
         className
       )}
       {...props}
@@ -33,7 +33,7 @@ export const Label = forwardRef(function Label({ className, ...props }, ref) {
   return (
     <label
       ref={ref}
-      className={cn('text-xs font-medium text-[var(--color-muted)]', className)}
+      className={cn('text-xs font-medium text-muted', className)}
       {...props}
     />
   );

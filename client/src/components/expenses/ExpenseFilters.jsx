@@ -38,20 +38,20 @@ export function ExpenseFilters({ value, onChange }) {
         ))}
       </Select>
 
-      <label className="block">
+      <label className="block min-w-0">
         <span className="mb-1 block text-xs text-muted md:hidden">From</span>
         <Input
-          className="w-full md:w-40"
+          className="block w-full min-w-0 appearance-none md:w-40"
           type="date"
           value={value.from || ''}
           onChange={(e) => set({ from: e.target.value })}
           aria-label="From date"
         />
       </label>
-      <label className="block">
+      <label className="block min-w-0">
         <span className="mb-1 block text-xs text-muted md:hidden">To</span>
         <Input
-          className="w-full md:w-40"
+          className="block w-full min-w-0 appearance-none md:w-40"
           type="date"
           value={value.to || ''}
           onChange={(e) => set({ to: e.target.value })}
