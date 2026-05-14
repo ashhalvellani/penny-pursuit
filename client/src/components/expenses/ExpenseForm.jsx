@@ -81,7 +81,7 @@ export function ExpenseForm({ initial, onSubmit, onCancel, submitting }) {
     >
       <Field label="Merchant" error={errors.merchant?.message}>
         <Input
-          placeholder="e.g. Chipotle"
+          placeholder="e.g. Walmart"
           autoFocus
           {...merchantReg}
           onBlur={handleMerchantBlur}
@@ -100,7 +100,11 @@ export function ExpenseForm({ initial, onSubmit, onCancel, submitting }) {
           />
         </Field>
         <Field label="Date" error={errors.date?.message}>
-          <Input type="date" {...register('date')} />
+          <Input
+            type="date"
+            className="block w-full min-w-0 appearance-none"
+            {...register('date')}
+          />
         </Field>
       </div>
 
