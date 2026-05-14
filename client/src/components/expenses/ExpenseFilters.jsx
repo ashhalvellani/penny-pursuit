@@ -14,7 +14,7 @@ export function ExpenseFilters({ value, onChange }) {
       <div className="relative col-span-2 md:col-span-1">
         <Search
           size={14}
-          className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-muted)]"
+          className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted"
         />
         <Input
           className="pl-9"
