@@ -31,7 +31,7 @@ export function Dialog({ open, onClose, title, children, className }) {
         role="dialog"
         aria-modal="true"
         className={cn(
-          'relative w-full max-w-md rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-6 shadow-xl',
+          'relative w-full max-w-md rounded-2xl border border-border bg-card p-6 shadow-xl',
           className
         )}
       >

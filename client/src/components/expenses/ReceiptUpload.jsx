@@ -109,7 +109,7 @@ export function ReceiptUpload({ onExtracted }) {
               <div className="text-xs text-muted">
                 {(file.size / 1024).toFixed(0)} KB · {file.type}
               </div>
-              <div className="mt-2 flex items-center gap-2">
+              <div className="mt-2 flex flex-wrap items-center gap-2">
                 <Button onClick={extract} disabled={loading} size="sm">
                   {loading ? (
                     <>
