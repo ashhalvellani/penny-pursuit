@@ -1,0 +1,19 @@
+{
+  "name": "Penny Pursuit",
+  "short_name": "Penny Pursuit",
+  "description": "Track every penny.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#10b981",
+  "background_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/icon.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
