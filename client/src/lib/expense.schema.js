@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import categories from '../../../shared/categories.json';
+import { todayISO } from './format';
 
 export const CATEGORIES = categories;
 
@@ -14,7 +15,7 @@ export const expenseFormSchema = z.object({
 export const defaultFormValues = () => ({
   merchant: '',
   amount: '',
-  date: new Date().toISOString().slice(0, 10),
+  date: todayISO(),
   category: '',
   note: '',
 });

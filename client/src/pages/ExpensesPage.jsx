@@ -8,6 +8,7 @@ import { ExpenseTable } from '../components/expenses/ExpenseTable';
 import { ExpenseFilters } from '../components/expenses/ExpenseFilters';
 import { ReceiptUpload } from '../components/expenses/ReceiptUpload';
 import { cn } from '../lib/cn';
+import { todayISO } from '../lib/format';
 import {
   useExpenses,
   useCreateExpense,
@@ -60,7 +61,7 @@ export default function ExpensesPage() {
     setPrefill({
       merchant: data.merchant || '',
       amount: data.amount ?? '',
-      date: data.date || new Date().toISOString().slice(0, 10),
+      date: data.date || todayISO(),
       category: data.category || '',
     });
     setDialogTab('manual');
